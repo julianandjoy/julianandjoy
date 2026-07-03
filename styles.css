@@ -1,0 +1,400 @@
+/* === Wedding Website Styles === */
+/* Inspired by Minted "Elizabeth" template - Olive colorway */
+
+:root {
+  --color-bg: #5f663a;
+  --color-text: #ece9d5;
+  --color-accent: #bdc786;
+  --color-accent-hover: #d4de9e;
+  --color-muted: #a8a88a;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Josefin Sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Navigation */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid rgba(236, 233, 213, 0.15);
+  padding: 1rem 2rem;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-link.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Main content */
+#app {
+  flex: 1;
+}
+
+/* Page sections */
+.page-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.divider {
+  width: 120px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: 2rem auto;
+  opacity: 0.6;
+}
+
+.divider-small {
+  width: 60px;
+  height: 1px;
+  background: var(--color-accent);
+  margin: 1.5rem auto;
+  opacity: 0.5;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-bg);
+  transform: translateY(-1px);
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero-subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.hero-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.5rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.hero-names .ampersand {
+  display: block;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  font-style: normal;
+  margin: 0.3rem 0;
+}
+
+.hero-date {
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.hero-location {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Events */
+.event-card {
+  margin-bottom: 2rem;
+}
+
+.event-card h3 {
+  color: var(--color-accent);
+}
+
+.event-date, .event-time, .event-venue {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  opacity: 0.85;
+}
+
+.event-desc {
+  margin-top: 0.75rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+}
+
+/* Music form */
+.music-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  color: var(--color-accent);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(236, 233, 213, 0.1);
+  border: 1px solid rgba(236, 233, 213, 0.3);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  transition: border-color 0.25s ease;
+}
+
+.form-group input::placeholder {
+  color: rgba(236, 233, 213, 0.4);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.music-form .btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.music-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-message {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.form-message.success { color: var(--color-accent); }
+.form-message.error { color: #e8a0a0; }
+
+/* FAQ */
+.faq-list {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(236, 233, 213, 0.15);
+  padding: 1.25rem 0;
+  cursor: pointer;
+}
+
+.faq-item:first-child {
+  border-top: 1px solid rgba(236, 233, 213, 0.15);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.faq-toggle {
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.85;
+  padding-right: 2rem;
+  display: none;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* Travel & Registry */
+.info-block {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.info-block h3 {
+  color: var(--color-accent);
+}
+
+.info-block ul {
+  padding-left: 1.5rem;
+  line-height: 2;
+}
+
+.registry-card {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.registry-card p {
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-list {
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
+  }
+
+  .hero-names {
+    font-size: 3.2rem;
+  }
+
+  .hero {
+    min-height: 50vh;
+  }
+
+  .page-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+}
