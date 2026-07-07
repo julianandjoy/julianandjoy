@@ -129,36 +129,31 @@ const pages = {
   `,
 
   venue: `
-    <section class="page-section">
+    <section class="page-section" style="padding-bottom: 6rem;">
       <h2 class="page-title">Venue</h2>
       <div class="divider"></div>
-      <h3>Château de la Couronne</h3>
-      <p style="margin-bottom: 2rem; opacity: 0.8;">Marthon, France</p>
-
-      <!-- Asymmetrical Editorial Collage for the Venue -->
-      <div class="photo-collage" style="margin: 4rem auto 5rem;">
-        <div class="collage-item item-1">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Cv6g5LBm8Xh-0P9adhm-QomRqCEaLNONemB-4f0sug&s=10" alt="Château Exterior" />
+      
+      <div class="venue-split-layout">
+        <div class="venue-image-sticky">
+          <!-- High-quality French chateau photo -->
+          <img src="https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=1600&q=90" alt="Château de la Couronne" />
         </div>
-        <div class="collage-item item-2">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFYNpOpRgpT4O96iZRmRGHpcghuZD05sE-xGiYTCWoqQ&s=10" alt="Château Aerial" />
-        </div>
-        <div class="collage-item item-3">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd12C6jHr2Uqo0hhKxntirUjuHP4cN_EbWRzZcLL8niA&s" alt="Château Pool" />
-        </div>
-        <div class="collage-item item-4">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGjTeeJzw6_yIdqb1oToIvxRMC2ParkdFX46X9Co9ig&s=10" alt="Château Entrance" />
+        
+        <div class="venue-info-scroll">
+          <h3 style="font-size: 2.2rem; font-family: var(--font-display); color: var(--color-accent); margin-bottom: 0.5rem; margin-top: 0;">Château de la Couronne</h3>
+          <p style="opacity: 0.8; font-size: 1.1rem; margin-bottom: 1.5rem; font-style: italic;">Marthon, France</p>
+          <div class="divider-small" style="margin: 0 0 1.5rem 0;"></div>
+          
+          <p style="line-height: 1.9; font-size: 1.05rem; opacity: 0.9; margin-bottom: 1.5rem;">
+            We are thrilled to host our wedding weekend at the enchanting Château de la Couronne. 
+            Nestled in the picturesque French countryside, this stunning 16th-century private estate blends timeless historic architecture with luxurious modern design.
+          </p>
+          <p style="line-height: 1.9; font-size: 1.05rem; opacity: 0.9; margin-bottom: 2rem;">
+            The château is surrounded by private rolling lawns, a walled garden, and a heated swimming pool. Inside, you'll find large stylish salons, billiards, and boutique suites where all of our guests will be staying.
+          </p>
+          <a href="https://chateaudelacouronne.com" target="_blank" class="btn" style="display: inline-block;">Visit Official Website</a>
         </div>
       </div>
-      
-      <div class="divider-small" style="margin-top: 5rem;"></div>
-      <p style="max-width:700px;margin:0 auto 2.5rem;line-height:1.8;">
-        We are thrilled to host our celebration at the enchanting Château de la Couronne! 
-        Nestled in the picturesque French countryside, this stunning 16th-century estate features sprawling gardens, luxurious rooms, and endless charm.
-      </p>
-      <p style="margin-top: 1.5rem; margin-bottom: 3rem;">
-        <a href="https://chateaudelacouronne.com" target="_blank" class="btn">Visit Venue Website</a>
-      </p>
     </section>
   `,
 
@@ -367,15 +362,6 @@ const pages = {
 let scrollListener = null;
 
 // Router
-function navigate(page) {
-  const app = document.getElementById('app');
-  app.innerHTML = pages[page] || pages.home;
-
-  // Trigger fade-in animation
-  app.classList.remove('fade-in');
-  void app.offsetWidth; // Force layout recalculation to reset CSS animation
-  app.classList.add('fade-in');
-
 // Router
 function navigate(page) {
   const app = document.getElementById('app');
@@ -386,6 +372,12 @@ function navigate(page) {
   void app.offsetWidth; // Force layout recalculation to reset CSS animation
   app.classList.add('fade-in');
 
+  // Clean up scroll listeners to prevent duplication
+  if (scrollListener) {
+    window.removeEventListener('scroll', scrollListener);
+    scrollListener = null;
+  }
+
   // Update active nav link
   document.querySelectorAll('.nav-link').forEach((link) => {
     link.classList.toggle('active', link.dataset.page === page);
@@ -394,6 +386,7 @@ function navigate(page) {
   // Re-attach event listeners / initialize components for dynamic pages
   if (page === 'music-requests') initMusicForm();
   if (page === 'faq') initFAQ();
+  if (page === 'venue') initVenueLayout();
 
   // Re-render Pinterest widgets if embedded boards are present
   if (page === 'dress-code' || page === 'schedule') {
@@ -475,6 +468,31 @@ function initFAQ() {
       }
     });
   });
+// Dynamic sticky split panel logic on scroll
+function initVenueLayout() {
+  const layout = document.querySelector('.venue-split-layout');
+  if (!layout) return;
+
+  const handleScroll = () => {
+    // If mobile viewports, remove active classes and let stack layout run
+    if (window.innerWidth <= 900) {
+      layout.classList.remove('split-active');
+      return;
+    }
+
+    // Morph layout to split column state once scrolled down 80px
+    if (window.scrollY > 80) {
+      layout.classList.add('split-active');
+    } else {
+      layout.classList.remove('split-active');
+    }
+  };
+
+  // Bind the scroll event listener
+  scrollListener = handleScroll;
+  window.addEventListener('scroll', scrollListener);
+  // Trigger once initially to check scroll state on load
+  handleScroll();
 }
 
 // Navigation click handlers
