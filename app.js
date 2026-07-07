@@ -627,26 +627,35 @@ function initHomeCollageScroll() {
     let ratio = scrolled / totalHeight;
     ratio = Math.max(0, Math.min(1, ratio)); // 0 to 1
 
+    // 3D Swarm parameters
     const totalCards = cards.length;
     const verticalGap = 165; // Spacing gap between cards vertically
+    
+    // Global swirl rotation (2.5 full spins over scroll runway)
+    const globalRotation = ratio * 900;
 
     cards.forEach((card, i) => {
       // Deterministic pseudo-random offsets for each card index (stateless & fluid)
       const r1 = Math.sin(i * 12.9898) * 43758.5453;
-      const randX = r1 - Math.floor(r1);
+      const randAngle = r1 - Math.floor(r1);
 
       const r2 = Math.sin(i * 78.233) * 43758.5453;
-      const randZ = r2 - Math.floor(r2);
+      const randRadius = r2 - Math.floor(r2);
 
       const r3 = Math.sin(i * 37.719) * 43758.5453;
       const randTilt = r3 - Math.floor(r3);
 
-      // Horizontal scatter (flying all over the place)
-      const x = (randX - 0.5) * 550; // Spreads from -275px to +275px
-      // Depth scatter (parallax depth layers)
-      const z = (randZ - 0.5) * 320; // Spreads depth from -160px to +160px
-      // Chaotic Z-axis tilts
-      const tilt = (randTilt - 0.5) * 36; // Staggers tilts from -18deg to +18deg
+      // Unique staggered phase angle and orbit radius for each photo (chaotic layout)
+      const angle = globalRotation + (randAngle * 360);
+      const rad = angle * Math.PI / 180;
+      
+      const radiusX = (window.innerWidth * 0.16) + (randRadius - 0.5) * 100; // Spreads radius dynamically
+      const radiusZ = 240 + (randRadius - 0.5) * 100; // Spreads depth dynamically
+      const tilt = (randTilt - 0.5) * 36; // Chaotic tilts from -18deg to +18deg
+
+      // Calculate circular coords based on current angle
+      const x = Math.sin(rad) * radiusX;
+      const z = Math.cos(rad) * radiusZ;
 
       // Vertical position relative to screen center
       const baseY = (i - (totalCards / 2)) * verticalGap;
@@ -655,7 +664,7 @@ function initHomeCollageScroll() {
 
       // Focus spotlight trigger: cards fade and scale in as they cross center screen
       const isFocused = Math.abs(yOffset) < 180;
-      const normalizedZ = z / 160; // -1 to 1 depth mapping
+      const normalizedZ = z / 280; // -1 to 1 depth mapping
 
       let scale, opacity;
       if (isFocused) {
