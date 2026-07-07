@@ -619,57 +619,54 @@ function initHomeCollageScroll() {
     const rect = track.getBoundingClientRect();
     const viewHeight = window.innerHeight;
 
-    // Start spinning as soon as the track top enters the bottom of the screen,
-    // and stop spinning when the track bottom fully exits the top of screen.
+    // Start tracking scroll ratio (0 to 1) from entry bottom to exit top
     const totalHeight = viewHeight + rect.height;
     const scrolled = viewHeight - rect.top;
 
     let ratio = scrolled / totalHeight;
     ratio = Math.max(0, Math.min(1, ratio)); // 0 to 1
 
-    // Map scroll ratio to 3.5 full rotations (1260 degrees of spin)
-    const globalRotation = ratio * 1260;
-
-    // 3D Orbit size parameters
-    const radiusX = window.innerWidth * 0.18; // Horizontal orbit spread (18% of screen width)
+    // 3D Orbit parameters
+    const radiusX = window.innerWidth * 0.18; // Horizontal orbit radius (18% viewport width)
     const radiusZ = 280; // Depth perspective radius
     const totalCards = cards.length;
-    
-    cards.forEach((card, i) => {
-      // base angle separation staggered evenly around the spiral circle
-      const baseAngle = i * (360 / 6);
-      const currentAngle = globalRotation + baseAngle;
-      const rad = currentAngle * Math.PI / 180;
+    const verticalGap = 160; // Spacing gap between cards vertically
 
-      // Calculate Trig circular coordinates
+    cards.forEach((card, i) => {
+      // Calculate vertical position relative to screen center
+      const baseY = (i - (totalCards / 2)) * verticalGap;
+      // Shift spiral up based on progress
+      const yOffset = baseY - (ratio * totalCards * verticalGap) + ((totalCards * verticalGap) / 2);
+
+      // Lock rotation angle directly to vertical offset distance.
+      // Every 380px of vertical travel spins the card 90 degrees (Math.PI/2 radians).
+      // This mathematically guarantees the card is at 0 degrees (front center) when yOffset = 0!
+      const rad = yOffset * (Math.PI / 380);
+
+      // Trigonometric coordinates
       const x = Math.sin(rad) * radiusX;
       const z = Math.cos(rad) * radiusZ;
-      
-      // Vertical helix layout (stagger cards vertically to form vertical spiral)
-      const baseY = (i - (totalCards / 2)) * 110;
-      // Shift the entire spiral vertically as we scroll so the cards pass the viewport center
-      const yOffset = baseY - (ratio * totalCards * 110) + ((totalCards * 110) / 2);
-
-      // Compute scale & opacity based on Z depth position
-      // z is positive when closer to screen (front stage)
       const normalizedZ = z / radiusZ; // Range: -1 to 1
 
-      // Focus spotlight trigger: card must be in the foreground AND vertically near center stage
-      const isFocused = (normalizedZ > 0.8) && (Math.abs(yOffset) < 100);
+      // Focus spotlight trigger: card must be vertically centered
+      const isFocused = Math.abs(yOffset) < 90;
 
       let scale, opacity;
       if (isFocused) {
-        scale = 1.05;
-        opacity = 1.0;
-        card.style.borderColor = 'var(--color-accent)';
-        card.style.boxShadow = '0 20px 45px rgba(0, 0, 0, 0.45)';
+        // Compute focus weight factor (0 to 1) based on center proximity
+        const focusWeight = 1 - (Math.abs(yOffset) / 90);
+        scale = 0.95 + focusWeight * 0.11; // Grows up to 1.06x
+        opacity = 0.75 + focusWeight * 0.25; // Brightens up to 1.0
+        card.style.borderColor = `rgba(236, 233, 213, ${0.15 + focusWeight * 0.85})`;
+        card.style.boxShadow = `0 ${12 + focusWeight * 18}px ${30 + focusWeight * 20}px rgba(0, 0, 0, ${0.2 + focusWeight * 0.2})`;
       } else {
-        scale = 0.65 + (normalizedZ + 1) * 0.15; // Range: 0.65 to 0.95
-        opacity = 0.15 + (normalizedZ + 1) * 0.225; // Range: 0.15 to 0.6
+        // Blur / fade out in background orbit
+        scale = 0.7 + (normalizedZ + 1) * 0.125; // Range: 0.7x to 0.95x
+        opacity = 0.12 + (normalizedZ + 1) * 0.24; // Range: 0.12 to 0.6
         card.style.borderColor = 'rgba(236, 233, 213, 0.08)';
-        card.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.25)';
+        card.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.2)';
       }
-      
+
       // Compute zIndex dynamically to draw foreground elements over background
       const zIndex = Math.round((normalizedZ + 1) * 200);
 
