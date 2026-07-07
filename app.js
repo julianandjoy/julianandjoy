@@ -622,47 +622,48 @@ function initHomeCollageScroll() {
     let ratio = scrolled / totalHeight;
     ratio = Math.max(0, Math.min(1, ratio)); // 0 to 1
 
-    // 3D Orbit parameters
-    const radiusX = window.innerWidth * 0.18; // Horizontal orbit radius (18% viewport width)
-    const radiusZ = 280; // Depth perspective radius
     const totalCards = cards.length;
-    const verticalGap = 160; // Spacing gap between cards vertically
+    const verticalGap = 165; // Spacing gap between cards vertically
 
     cards.forEach((card, i) => {
-      // Calculate vertical position relative to screen center
+      // Deterministic pseudo-random offsets for each card index (stateless & fluid)
+      const r1 = Math.sin(i * 12.9898) * 43758.5453;
+      const randX = r1 - Math.floor(r1);
+
+      const r2 = Math.sin(i * 78.233) * 43758.5453;
+      const randZ = r2 - Math.floor(r2);
+
+      const r3 = Math.sin(i * 37.719) * 43758.5453;
+      const randTilt = r3 - Math.floor(r3);
+
+      // Horizontal scatter (flying all over the place)
+      const x = (randX - 0.5) * 550; // Spreads from -275px to +275px
+      // Depth scatter (parallax depth layers)
+      const z = (randZ - 0.5) * 320; // Spreads depth from -160px to +160px
+      // Chaotic Z-axis tilts
+      const tilt = (randTilt - 0.5) * 36; // Staggers tilts from -18deg to +18deg
+
+      // Vertical position relative to screen center
       const baseY = (i - (totalCards / 2)) * verticalGap;
-      // Shift spiral up based on progress, adding a +380px starting offset on load
-      // so even the first card starts cleanly below the viewport center (out-of-focus).
+      // Shift entire layout up as we scroll (starts offset +380px down on load so top images fade in)
       const yOffset = baseY - (ratio * totalCards * verticalGap) + ((totalCards * verticalGap) / 2) + (1 - ratio) * 380;
 
-      // Lock rotation angle directly to vertical offset distance.
-      // Every 380px of vertical travel spins the card 90 degrees (Math.PI/2 radians).
-      const rad = yOffset * (Math.PI / 380);
-
-      // Organic aesthetic jitter and tilt offsets for editorial chaotic look
-      const jitterX = (i % 4 - 1.5) * 30; // Staggers cards slightly horizontally
-      const tilt = (i % 3 - 1) * 8; // Alternates slight Z-axis rotation tilts (-8deg, 0deg, 8deg)
-
-      // Trigonometric coordinates
-      const x = Math.sin(rad) * radiusX + jitterX;
-      const z = Math.cos(rad) * radiusZ;
-      const normalizedZ = z / radiusZ; // Range: -1 to 1
-
-      // Focus spotlight trigger: widened to 180px so multiple photos can be centered/focused at once
+      // Focus spotlight trigger: cards fade and scale in as they cross center screen
       const isFocused = Math.abs(yOffset) < 180;
+      const normalizedZ = z / 160; // -1 to 1 depth mapping
 
       let scale, opacity;
       if (isFocused) {
-        // Compute focus weight factor (0 to 1) based on center proximity
+        // Focus weight factor (0 to 1) based on center screen proximity
         const focusWeight = 1 - (Math.abs(yOffset) / 180);
-        scale = 0.95 + focusWeight * 0.11; // Grows up to 1.06x
-        opacity = 0.75 + focusWeight * 0.25; // Brightens up to 1.0
+        scale = 0.95 + focusWeight * 0.1; // Scales up to 1.05x
+        opacity = 0.8 + focusWeight * 0.2; // Brightens up to 1.0
         card.style.borderColor = `rgba(236, 233, 213, ${0.15 + focusWeight * 0.85})`;
-        card.style.boxShadow = `0 ${12 + focusWeight * 18}px ${30 + focusWeight * 20}px rgba(0, 0, 0, ${0.2 + focusWeight * 0.2})`;
+        card.style.boxShadow = `0 ${12 + focusWeight * 18}px ${30 + focusWeight * 20}px rgba(0, 0, 0, ${0.25 + focusWeight * 0.15})`;
       } else {
-        // Blur / fade out in background orbit (increased slightly for background visibility)
-        scale = 0.7 + (normalizedZ + 1) * 0.125; // Range: 0.7x to 0.95x
-        opacity = 0.2 + (normalizedZ + 1) * 0.225; // Range: 0.2 to 0.65
+        // Blur / fade out in background orbit (keeps cards visible in background heap)
+        scale = 0.72 + (normalizedZ + 1) * 0.1; // Range: 0.72x to 0.92x
+        opacity = 0.25 + (normalizedZ + 1) * 0.2; // Range: 0.25 to 0.65
         card.style.borderColor = 'rgba(236, 233, 213, 0.08)';
         card.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.2)';
       }
