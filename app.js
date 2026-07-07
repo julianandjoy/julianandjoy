@@ -214,14 +214,9 @@ const pages = {
       <!-- Welcome Dinner Section -->
       <div style="margin-bottom: 4rem;">
         <h3 style="font-size: 1.8rem; color: var(--color-text); margin-bottom: 0.5rem;">Welcome Dinner</h3>
-        <p style="color: var(--color-accent); font-style: italic; margin-bottom: 1rem;">Smart Casual</p>
-        <p style="font-size: 0.95rem; opacity: 0.85; margin: 0 auto 2.5rem; max-width: 600px; line-height: 1.7; text-align: center;">
-          Please, no athletic wear or sneakers.<br>
-          <strong style="color: var(--color-accent);">For Him:</strong> Collared button-up shirts, chinos, or dress pants.<br>
-          <strong style="color: var(--color-accent);">For Her:</strong> Dresses, summer dresses, or elegant separates.
-        </p>
+        <p style="color: var(--color-accent); font-style: italic; margin-bottom: 2rem;">Smart Casual</p>
         
-        <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
           <!-- Women's Welcome Dinner Board -->
           <div style="flex: 1 1 300px; max-width: 400px; text-align: center;">
             <h4 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.2rem;">Women's Welcome Dinner</h4>
@@ -234,6 +229,13 @@ const pages = {
             <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="280" data-pin-scale-width="115" href="https://www.pinterest.com/joiiewang/mens-welcome-dinner/"></a>
           </div>
         </div>
+        
+        <div class="divider-small"></div>
+        <div style="max-width:500px;margin:1.5rem auto;text-align:left;">
+          <p><strong style="color:var(--color-accent)">For her:</strong> Dresses, summer dresses, or elegant separates.</p>
+          <p><strong style="color:var(--color-accent)">For him:</strong> Collared button-up shirts, chinos, or dress pants.</p>
+        </div>
+        <p style="font-style:italic;opacity:0.8;">Please, no athletic wear or sneakers.</p>
       </div>
       
       <div class="divider"></div>
