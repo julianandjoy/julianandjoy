@@ -73,11 +73,7 @@ const pages = {
           <div class="timeline-content">
             <h3>Welcome Dinner</h3>
             <p>Join us for dinner to kick off the celebration weekend! We’ll have welcome drinks, bites, and pizzas!</p>
-            <p class="timeline-dress-code" style="margin-bottom: 0.4rem;"><strong>Dress Code:</strong> Smart Casual (please, no athletic wear or sneakers)</p>
-            <div style="font-size: 0.9rem; opacity: 0.85; line-height: 1.5; margin-left: 0.5rem; border-left: 2px solid var(--color-accent); padding-left: 0.8rem; margin-top: 0.5rem; text-align: left;">
-              <div style="margin-bottom: 0.25rem;"><strong>For Him:</strong> Collared button-up shirts, chinos, or dress pants</div>
-              <div><strong>For Her:</strong> Dresses, summer dresses, or elegant separates</div>
-            </div>
+            <p class="timeline-dress-code"><strong>Dress Code:</strong> Smart Casual — <a href="#dress-code">View details &amp; attire boards</a></p>
           </div>
         </div>
 
@@ -218,7 +214,12 @@ const pages = {
       <!-- Welcome Dinner Section -->
       <div style="margin-bottom: 4rem;">
         <h3 style="font-size: 1.8rem; color: var(--color-text); margin-bottom: 0.5rem;">Welcome Dinner</h3>
-        <p style="color: var(--color-accent); font-style: italic; margin-bottom: 2rem;">Casual &amp; Comfortable</p>
+        <p style="color: var(--color-accent); font-style: italic; margin-bottom: 1rem;">Smart Casual</p>
+        <p style="font-size: 0.95rem; opacity: 0.85; margin: 0 auto 2.5rem; max-width: 600px; line-height: 1.7; text-align: center;">
+          Please, no athletic wear or sneakers.<br>
+          <strong style="color: var(--color-accent);">For Him:</strong> Collared button-up shirts, chinos, or dress pants.<br>
+          <strong style="color: var(--color-accent);">For Her:</strong> Dresses, summer dresses, or elegant separates.
+        </p>
         
         <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
           <!-- Women's Welcome Dinner Board -->
