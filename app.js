@@ -554,10 +554,10 @@ function initVenueScrollStory() {
     // 1. Image Morphing (spans the entire entry timeline)
     const imgProgress = ratio;
 
-    // Width morphs from 90% to 35%
-    const imgWidth = 90 - (imgProgress * 55);
-    // Height morphs from 75vh to 60vh
-    const imgHeight = 75 - (imgProgress * 15);
+    // Width morphs from 92% (most of screen) to 35%
+    const imgWidth = 92 - (imgProgress * 57);
+    // Height morphs from 80vh (most of screen) to 60vh
+    const imgHeight = 80 - (imgProgress * 20);
     // Slide left viewport coordinate translation (further left for larger gap)
     const imgTranslateX = imgProgress * -26;
 

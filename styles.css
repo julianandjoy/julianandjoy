@@ -872,8 +872,8 @@ a:hover {
 
 .venue-image-panel {
   position: absolute;
-  width: 90%;
-  height: 75vh;
+  width: 92%;
+  height: 80vh;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
