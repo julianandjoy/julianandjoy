@@ -974,5 +974,106 @@ a:hover {
   }
 }
 
+/* Password Gate Screen Overlay styling */
+#password-gate {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  padding: 2rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.password-card {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  border: 1px solid rgba(236, 233, 213, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.password-logo {
+  height: 90px;
+  width: auto;
+  margin-bottom: 1.5rem;
+  opacity: 0.95;
+}
+
+.password-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.password-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+#password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#password-input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(236, 233, 213, 0.15);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+#password-input:focus {
+  border-color: var(--color-accent);
+}
+
+.password-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.password-btn:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.password-error-msg {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 1.25rem;
+  height: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
 
 

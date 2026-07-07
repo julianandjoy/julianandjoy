@@ -9,49 +9,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <nav class="top-nav">
-    <div class="nav-logo">
-      <a href="#home" class="nav-logo-link" data-page="home">
-        <img src="images/JandJ_logo.png" alt="Julian &amp; Joy" />
-      </a>
+  <div id="password-gate">
+    <div class="password-card">
+      <img src="images/JandJ_logo.png" alt="Julian &amp; Joy" class="password-logo" />
+      <h2 class="password-title">JULIAN &amp; JOY</h2>
+      <p class="password-subtitle">MAY 22, 2027 • CHÂTEAU DE LA COURONNE</p>
+      <form id="password-form">
+        <input type="password" id="password-input" placeholder="Enter Password" autofocus required />
+        <button type="submit" class="password-btn">ENTER</button>
+      </form>
+      <p id="password-error" class="password-error-msg"></p>
     </div>
-    <ul class="nav-list">
-      <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
-      <li><a href="#schedule" class="nav-link" data-page="schedule">Schedule</a></li>
-      <li><a href="#venue" class="nav-link" data-page="venue">Venue</a></li>
-      <li><a href="#dress-code" class="nav-link" data-page="dress-code">Dress Code</a></li>
-      <li><a href="#music-requests" class="nav-link" data-page="music-requests">Music Requests</a></li>
-      <li><a href="#faq" class="nav-link" data-page="faq">FAQ</a></li>
-      <li><a href="#travel" class="nav-link" data-page="travel">Travel</a></li>
-      <li><a href="#registry" class="nav-link" data-page="registry">Registry</a></li>
-    </ul>
-  </nav>
+  </div>
 
-  <main id="app"></main>
+  <div id="main-content" style="display: none;">
+    <nav class="top-nav">
+      <div class="nav-logo">
+        <a href="#home" class="nav-logo-link" data-page="home">
+          <img src="images/JandJ_logo.png" alt="Julian &amp; Joy" />
+        </a>
+      </div>
+      <ul class="nav-list">
+        <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+        <li><a href="#schedule" class="nav-link" data-page="schedule">Schedule</a></li>
+        <li><a href="#venue" class="nav-link" data-page="venue">Venue</a></li>
+        <li><a href="#dress-code" class="nav-link" data-page="dress-code">Dress Code</a></li>
+        <li><a href="#music-requests" class="nav-link" data-page="music-requests">Music Requests</a></li>
+        <li><a href="#faq" class="nav-link" data-page="faq">FAQ</a></li>
+        <li><a href="#travel" class="nav-link" data-page="travel">Travel</a></li>
+        <li><a href="#registry" class="nav-link" data-page="registry">Registry</a></li>
+      </ul>
+    </nav>
 
-  <footer class="site-footer" style="padding: 6rem 3rem; background: var(--color-bg); border-top: 1px solid rgba(236, 233, 213, 0.08);">
-    <div class="footer-container" style="display: flex; justify-content: space-around; align-items: center; max-width: 1400px; margin: 0 auto; gap: 3rem; flex-wrap: wrap;">
-      
-      <!-- Left column: Date -->
-      <div class="footer-left" style="flex: 1; text-align: right; min-width: 250px;">
-        <p style="font-family: var(--font-display); font-size: 2.2rem; color: var(--color-accent); margin: 0; letter-spacing: 0.1rem; line-height: 1.2;">MAY 22, 2027</p>
-        <p style="font-size: 0.85rem; opacity: 0.5; margin: 0.5rem 0 0; font-family: var(--font-sans); letter-spacing: 0.05rem;">SAVE THE DATE</p>
+    <main id="app"></main>
+
+    <footer class="site-footer" style="padding: 6rem 3rem; background: var(--color-bg); border-top: 1px solid rgba(236, 233, 213, 0.08);">
+      <div class="footer-container" style="display: flex; justify-content: space-around; align-items: center; max-width: 1400px; margin: 0 auto; gap: 3rem; flex-wrap: wrap;">
+        
+        <!-- Left column: Date -->
+        <div class="footer-left" style="flex: 1; text-align: right; min-width: 250px;">
+          <p style="font-family: var(--font-display); font-size: 2.2rem; color: var(--color-accent); margin: 0; letter-spacing: 0.1rem; line-height: 1.2;">MAY 22, 2027</p>
+          <p style="font-size: 0.85rem; opacity: 0.5; margin: 0.5rem 0 0; font-family: var(--font-sans); letter-spacing: 0.05rem;">SAVE THE DATE</p>
+        </div>
+        
+        <!-- Center column: Giant Logo (at least double the size) -->
+        <div class="footer-center" style="display: flex; justify-content: center; align-items: center;">
+          <img src="images/JandJ_logo.png" alt="Julian &amp; Joy Logo" style="height: 50vh; max-height: 480px; min-height: 280px; width: auto; opacity: 0.9; display: block;" />
+        </div>
+        
+        <!-- Right column: Names -->
+        <div class="footer-right" style="flex: 1; text-align: left; min-width: 250px;">
+          <p style="font-family: var(--font-display); font-size: 2.2rem; color: var(--color-accent); margin: 0; letter-spacing: 0.1rem; line-height: 1.2;">JULIAN &amp; JOY</p>
+          <p style="font-size: 0.85rem; opacity: 0.5; margin: 0.5rem 0 0; font-family: var(--font-sans); letter-spacing: 0.05rem;">CHÂTEAU DE LA COURONNE</p>
+        </div>
+        
       </div>
-      
-      <!-- Center column: Giant Logo (at least double the size) -->
-      <div class="footer-center" style="display: flex; justify-content: center; align-items: center;">
-        <img src="images/JandJ_logo.png" alt="Julian &amp; Joy Logo" style="height: 50vh; max-height: 480px; min-height: 280px; width: auto; opacity: 0.9; display: block;" />
-      </div>
-      
-      <!-- Right column: Names -->
-      <div class="footer-right" style="flex: 1; text-align: left; min-width: 250px;">
-        <p style="font-family: var(--font-display); font-size: 2.2rem; color: var(--color-accent); margin: 0; letter-spacing: 0.1rem; line-height: 1.2;">JULIAN &amp; JOY</p>
-        <p style="font-size: 0.85rem; opacity: 0.5; margin: 0.5rem 0 0; font-family: var(--font-sans); letter-spacing: 0.05rem;">CHÂTEAU DE LA COURONNE</p>
-      </div>
-      
-    </div>
-  </footer>
+    </footer>
+  </div>
 
   <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
   <script src="app.js"></script>
