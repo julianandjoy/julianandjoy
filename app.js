@@ -233,9 +233,8 @@ const pages = {
         <div class="divider-small"></div>
         <div style="max-width:500px;margin:1.5rem auto;text-align:left;">
           <p><strong style="color:var(--color-accent)">For her:</strong> Dresses, summer dresses, or elegant separates.</p>
-          <p><strong style="color:var(--color-accent)">For him:</strong> Collared button-up shirts, chinos, or dress pants.</p>
+          <p><strong style="color:var(--color-accent)">For him:</strong> Collared button-up shirts, chinos, or dress pants (please, no sneakers).</p>
         </div>
-        <p style="font-style:italic;opacity:0.8;">Please, no athletic wear or sneakers.</p>
       </div>
       
       <div class="divider"></div>
@@ -264,7 +263,6 @@ const pages = {
           <p><strong style="color:var(--color-accent)">For her:</strong> Cocktail dresses, jumpsuits, or dressy separates. Floor-length gowns are welcome too.</p>
           <p><strong style="color:var(--color-accent)">For him:</strong> Suit and tie, or dress shirt with slacks. No need for a full tuxedo.</p>
         </div>
-        <p style="font-style:italic;opacity:0.8;">Please avoid wearing white or ivory.</p>
       </div>
     </section>
   `,
