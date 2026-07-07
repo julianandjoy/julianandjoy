@@ -1003,7 +1003,7 @@ a:hover {
   min-height: 360px;
   max-height: 500px; /* Giant primary visual centerpiece */
   width: auto;
-  margin-bottom: 0.75rem; /* Shrunk vertical gap */
+  margin-bottom: -2.5rem; /* Negative margin to counteract inner whitespace in the PNG graphic */
   opacity: 0.95;
   filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.18));
 }
@@ -1012,7 +1012,7 @@ a:hover {
 @media (max-width: 600px) {
   .password-logo {
     height: 250px !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: -1.5rem !important;
   }
   #password-form {
     max-width: 250px !important;
