@@ -555,6 +555,49 @@ function initHomeCollageScroll() {
   const cards = document.querySelectorAll('.tornado-card');
   if (!track || cards.length === 0) return;
 
+  let lastSpawnScroll = 0;
+
+  const spawnSparkle = () => {
+    const stage = document.querySelector('.tornado-stage');
+    if (!stage) return;
+
+    // Limit maximum active particles to prevent performance degradation
+    if (stage.querySelectorAll('.sparkle-particle').length > 35) return;
+
+    const particle = document.createElement('div');
+    particle.className = 'sparkle-particle';
+    particle.textContent = Math.random() > 0.4 ? '✦' : '✨';
+
+    // Randomize initial coordinate offsets
+    const startX = (Math.random() - 0.5) * 500;
+    const startY = (Math.random() - 0.5) * 350;
+    const startZ = (Math.random() - 0.5) * 240;
+
+    // Outward trajectory drift offsets
+    const endX = startX + (Math.random() - 0.5) * 160;
+    const endY = startY - (Math.random() * 80 + 40); // Floating upward drift
+
+    const midX = startX + (endX - startX) * 0.45;
+    const midY = startY + (endY - startY) * 0.45;
+
+    const size = Math.random() * 12 + 10; // Gold star sizes: 10px to 22px
+
+    particle.style.setProperty('--x-mid', `${midX}px`);
+    particle.style.setProperty('--y-mid', `${midY}px`);
+    particle.style.setProperty('--x-end', `${endX}px`);
+    particle.style.setProperty('--y-end', `${endY}px`);
+    particle.style.setProperty('--z', `${startZ}px`);
+    particle.style.setProperty('--size', `${size}px`);
+
+    particle.style.transform = `translate3d(${startX}px, ${startY}px, ${startZ}px) scale(0)`;
+    stage.appendChild(particle);
+
+    // Self-delete once CSS keyframes finish
+    setTimeout(() => {
+      particle.remove();
+    }, 1200);
+  };
+
   const handleCollageScroll = () => {
     // Disable scrolling movement on mobile viewports
     if (window.innerWidth <= 900) {
@@ -619,6 +662,14 @@ function initHomeCollageScroll() {
         card.style.borderColor = 'rgba(236, 233, 213, 0.08)';
       }
     });
+
+    // Spawn dynamic sparkles while scroll activity is detected
+    const currentScroll = window.scrollY;
+    if (Math.abs(currentScroll - lastSpawnScroll) > 12) {
+      spawnSparkle();
+      if (Math.random() > 0.3) spawnSparkle(); // Double particle random chance
+      lastSpawnScroll = currentScroll;
+    }
   };
 
   // Bind the scroll event listener
