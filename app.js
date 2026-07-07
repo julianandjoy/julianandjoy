@@ -8,11 +8,9 @@ const pages = {
   home: `
     <section class="hero">
       <p class="hero-subtitle">Together with their families</p>
-      <h1 class="hero-names">
-        Julian
-        <span class="ampersand">&amp;</span>
-        Joy
-      </h1>
+      <div class="hero-logo-container" style="margin: 2rem auto 2.5rem; max-width: 320px;">
+        <img src="images/JandJ_logo.png" alt="Julian &amp; Joy Logo" style="width: 100%; height: auto; display: block; margin: 0 auto;" />
+      </div>
       <div class="divider"></div>
       <p class="hero-date">May 22, 2027</p>
       <p class="hero-location">City, State</p>
@@ -603,7 +601,7 @@ function initCarousels() {
 }
 
 // Navigation click handlers
-document.querySelectorAll('.nav-link').forEach((link) => {
+document.querySelectorAll('.nav-link, .nav-logo-link').forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     const page = link.dataset.page;

@@ -72,16 +72,35 @@ a:hover {
   z-index: 100;
   background-color: var(--color-bg);
   border-bottom: 1px solid rgba(236, 233, 213, 0.15);
-  padding: 1rem 2rem;
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  height: 38px; /* Compact height for navigation bar */
+  width: auto;
+  display: block;
+  transition: opacity 0.25s ease;
+}
+
+.nav-logo a:hover img {
+  opacity: 0.8;
 }
 
 .nav-list {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 2rem;
   list-style: none;
-  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -374,8 +393,16 @@ a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .nav-list {
+  .top-nav {
+    flex-direction: column;
     gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-list {
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
   }
 
   .nav-link {
