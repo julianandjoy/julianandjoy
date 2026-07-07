@@ -14,7 +14,7 @@ const pages = {
         Joy
       </h1>
       <div class="divider"></div>
-      <p class="hero-date">September 25, 2027</p>
+      <p class="hero-date">May 22, 2027</p>
       <p class="hero-location">City, State</p>
     </section>
     <section class="page-section">
@@ -132,14 +132,18 @@ const pages = {
       <h3>Château de la Couronne</h3>
       <p style="margin-bottom: 1.5rem; opacity: 0.8;">Marthon, France</p>
       
-      <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
-        <div style="flex: 1 1 300px; max-width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-          <img src="https://images.unsplash.com/photo-1548625361-16a00e5720db?auto=format&fit=crop&w=800&q=80" alt="Château Exterior" style="width: 100%; height: 260px; object-fit: cover; display: block;" />
-          <p style="padding: 0.5rem; font-size: 0.8rem; background: rgba(0,0,0,0.2); margin: 0;">The Historic Château</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+        <div style="flex: 1 1 200px; max-width: 220px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Cv6g5LBm8Xh-0P9adhm-QomRqCEaLNONemB-4f0sug&s=10" alt="Château Exterior" style="width: 100%; height: 180px; object-fit: cover; display: block;" />
         </div>
-        <div style="flex: 1 1 300px; max-width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80" alt="Château Gardens" style="width: 100%; height: 260px; object-fit: cover; display: block;" />
-          <p style="padding: 0.5rem; font-size: 0.8rem; background: rgba(0,0,0,0.2); margin: 0;">The Estate Grounds</p>
+        <div style="flex: 1 1 200px; max-width: 220px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFYNpOpRgpT4O96iZRmRGHpcghuZD05sE-xGiYTCWoqQ&s=10" alt="Château Aerial" style="width: 100%; height: 180px; object-fit: cover; display: block;" />
+        </div>
+        <div style="flex: 1 1 200px; max-width: 220px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd12C6jHr2Uqo0hhKxntirUjuHP4cN_EbWRzZcLL8niA&s" alt="Château Pool &amp; Garden" style="width: 100%; height: 180px; object-fit: cover; display: block;" />
+        </div>
+        <div style="flex: 1 1 200px; max-width: 220px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGjTeeJzw6_yIdqb1oToIvxRMC2ParkdFX46X9Co9ig&s=10" alt="Château Entrance" style="width: 100%; height: 180px; object-fit: cover; display: block;" />
         </div>
       </div>
       
@@ -348,21 +352,80 @@ const pages = {
       </div>
     </section>
   `,
+
+  gallery: `
+    <section class="page-section">
+      <h2 class="page-title">Elopement Gallery</h2>
+      <div class="divider"></div>
+      <p style="max-width:600px;margin:0 auto 2rem;line-height:1.8;">
+        Here are some memories from our intimate elopement! We wanted to share these special moments with you as we prepare for the wedding weekend.
+      </p>
+
+      <div class="carousel-container">
+        <!-- Slide 1 (Replace src with your actual photo URLs) -->
+        <div class="carousel-slide active">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80" alt="Elopement Photo 1" />
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80" alt="Elopement Photo 2" />
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80" alt="Elopement Photo 3" />
+        </div>
+        <!-- Slide 4 -->
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1000&q=80" alt="Elopement Photo 4" />
+        </div>
+
+        <!-- Arrows -->
+        <button class="carousel-btn carousel-prev">&#10094;</button>
+        <button class="carousel-btn carousel-next">&#10095;</button>
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+          <span class="carousel-dot active" data-slide="0"></span>
+          <span class="carousel-dot" data-slide="1"></span>
+          <span class="carousel-dot" data-slide="2"></span>
+          <span class="carousel-dot" data-slide="3"></span>
+        </div>
+      </div>
+      <p style="font-style: italic; opacity: 0.6; margin-top: 1rem; font-size: 0.85rem;">
+        *Tip: You can easily swap these placeholders with your actual photos inside app.js!
+      </p>
+    </section>
+  `,
 };
+
+// Global reference for carousel auto-play
+let carouselInterval = null;
 
 // Router
 function navigate(page) {
   const app = document.getElementById('app');
   app.innerHTML = pages[page] || pages.home;
 
+  // Trigger fade-in animation
+  app.classList.remove('fade-in');
+  void app.offsetWidth; // Force layout recalculation to reset CSS animation
+  app.classList.add('fade-in');
+
+  // Stop previous carousel rotation if navigating away
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+    carouselInterval = null;
+  }
+
   // Update active nav link
   document.querySelectorAll('.nav-link').forEach((link) => {
     link.classList.toggle('active', link.dataset.page === page);
   });
 
-  // Re-attach event listeners for interactive pages
+  // Re-attach event listeners / initialize components for dynamic pages
   if (page === 'music-requests') initMusicForm();
   if (page === 'faq') initFAQ();
+  if (page === 'gallery') initCarousel();
 
   // Re-render Pinterest widgets if embedded boards are present
   if (page === 'dress-code' || page === 'schedule') {
@@ -444,6 +507,76 @@ function initFAQ() {
       }
     });
   });
+}
+
+// Image Carousel Slider
+function initCarousel() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const prevBtn = document.querySelector('.carousel-prev');
+  const nextBtn = document.querySelector('.carousel-next');
+  const dots = document.querySelectorAll('.carousel-dot');
+  
+  if (slides.length === 0) return;
+  
+  let currentSlide = 0;
+  
+  function showSlide(index) {
+    // Reset index limits
+    if (index >= slides.length) currentSlide = 0;
+    else if (index < 0) currentSlide = slides.length - 1;
+    else currentSlide = index;
+    
+    // Update slide classes
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentSlide);
+    });
+    
+    // Update indicator dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
+    });
+  }
+  
+  // Event listeners for arrows
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+      resetAutoPlay();
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+      resetAutoPlay();
+    });
+  }
+  
+  // Event listeners for dots
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const targetIndex = parseInt(e.target.getAttribute('data-slide'), 10);
+      showSlide(targetIndex);
+      resetAutoPlay();
+    });
+  });
+  
+  // Auto-play setup
+  function startAutoPlay() {
+    carouselInterval = setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 4000); // Change photo every 4 seconds
+  }
+  
+  function resetAutoPlay() {
+    if (carouselInterval) {
+      clearInterval(carouselInterval);
+      startAutoPlay();
+    }
+  }
+  
+  // Start auto-play initially
+  startAutoPlay();
 }
 
 // Navigation click handlers
