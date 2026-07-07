@@ -544,11 +544,11 @@ function initVenueScrollStory() {
     const viewHeight = window.innerHeight;
     const startY = 90; // Top navigation bar height offset
 
-    // Start morphing as soon as the venue section enters the bottom of the screen,
-    // and complete it by the time the section reaches its sticky top pin position.
-    const startScroll = viewHeight;
-    const endScroll = startY;
-    let ratio = (startScroll - rect.top) / (startScroll - endScroll);
+    // Start morphing exactly on scroll from the top of the page (scrollY = 0)
+    // and complete the transition once scrolled down 350px.
+    const scrollY = window.scrollY;
+    const maxScroll = 350;
+    let ratio = scrollY / maxScroll;
     ratio = Math.max(0, Math.min(1, ratio)); // Clamp between 0 and 1
 
     // 1. Image Morphing (spans the entire entry timeline)
