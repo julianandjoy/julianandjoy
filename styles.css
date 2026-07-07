@@ -807,33 +807,7 @@ a:hover {
   }
 }
 
-/* --- Magical Sparkle Particle System --- */
-.sparkle-particle {
-  position: absolute;
-  color: #f7e7a8; /* Elegant bright gold star tint */
-  font-size: var(--size);
-  text-shadow: 0 0 6px rgba(247, 231, 168, 0.9), 0 0 15px var(--color-accent);
-  pointer-events: none;
-  z-index: 1000;
-  will-change: transform, opacity;
-  transform-style: preserve-3d;
-  animation: particle-float 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
 
-@keyframes particle-float {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0) rotate(0deg);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-    transform: translate3d(var(--x-mid), var(--y-mid), var(--z)) scale(1.25) rotate(45deg);
-  }
-  100% {
-    transform: translate3d(var(--x-end), var(--y-end), var(--z)) scale(0) rotate(180deg);
-    opacity: 0;
-  }
-}
 
 /* GPU-Accelerated Mobile Smooth Transitions */
 @media (max-width: 900px) {
