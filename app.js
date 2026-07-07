@@ -632,11 +632,14 @@ function initHomeCollageScroll() {
     const verticalGap = 160; // Spacing gap between cards vertically
 
     cards.forEach((card, i) => {
-      // Vertical position relative to screen center
-      const baseY = (i - (totalCards / 2)) * verticalGap;
-      // Shift spiral up based on progress, adding a +380px starting offset on load
-      // so even the first card starts cleanly below the viewport center (out-of-focus).
-      const yOffset = baseY - (ratio * totalCards * verticalGap) + ((totalCards * verticalGap) / 2) + (1 - ratio) * 380;
+      // Vertical position of the card in the helix (centered at totalCards/2)
+      const baseY = (i - ((totalCards - 1) / 2)) * verticalGap;
+      
+      // Shift the entire helix up as we scroll:
+      // - At ratio = 0: cY is -1580px, mapping card 0 (baseY = -1200px) to yOffset = 380px (out of focus below).
+      // - At ratio = 1: cY is 1200px, mapping card 15 (baseY = 1200px) to yOffset = 0px (perfect center stage spotlight).
+      const cY = -1580 + ratio * 2780;
+      const yOffset = baseY - cY;
 
       // Lock rotation angle directly to vertical offset distance.
       // Every 380px of vertical travel spins the card 90 degrees (Math.PI/2 radians).
