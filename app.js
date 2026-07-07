@@ -506,18 +506,17 @@ function initVenueScrollStory() {
 
     const rect = track.getBoundingClientRect();
     const viewHeight = window.innerHeight;
-
-    // Calculate progress ratio (0 to 1) of scrolling through the track
     const startY = 90; // Top navigation bar height offset
-    const totalDuration = rect.height - (viewHeight - startY);
-    const elapsed = -rect.top + startY;
 
-    let ratio = elapsed / totalDuration;
-    ratio = Math.max(0, Math.min(1, ratio));
+    // Start morphing as soon as the venue section enters the bottom of the screen,
+    // and complete it by the time the section reaches its sticky top pin position.
+    const startScroll = viewHeight;
+    const endScroll = startY;
+    let ratio = (startScroll - rect.top) / (startScroll - endScroll);
+    ratio = Math.max(0, Math.min(1, ratio)); // Clamp between 0 and 1
 
-    // 1. Image Morphing (from 0.0 to 0.45 scroll progress)
-    let imgProgress = ratio / 0.45;
-    imgProgress = Math.max(0, Math.min(1, imgProgress));
+    // 1. Image Morphing (spans the entire entry timeline)
+    const imgProgress = ratio;
 
     // Width morphs from 90% to 35%
     const imgWidth = 90 - (imgProgress * 55);
@@ -530,9 +529,9 @@ function initVenueScrollStory() {
     imgWrapper.style.height = `${imgHeight}vh`;
     imgWrapper.style.transform = `translate3d(${imgTranslateX}vw, 0, 0)`;
 
-    // 2. Text storytelling fade & slide in (from 0.35 to 0.8 scroll progress)
-    if (ratio > 0.35) {
-      let textProgress = (ratio - 0.35) / 0.45;
+    // 2. Text storytelling fade & slide in (triggers past 30% of entry scroll progress)
+    if (ratio > 0.3) {
+      let textProgress = (ratio - 0.3) / 0.7;
       textProgress = Math.max(0, Math.min(1, textProgress));
 
       textWrapper.style.opacity = textProgress;
@@ -619,11 +618,12 @@ function initHomeCollageScroll() {
     const rect = track.getBoundingClientRect();
     const viewHeight = window.innerHeight;
 
-    const startY = 90; // Top navigation bar height offset
-    const totalDuration = rect.height - (viewHeight - startY);
-    const elapsed = -rect.top + startY;
+    // Start spinning as soon as the track top enters the bottom of the screen,
+    // and stop spinning when the track bottom fully exits the top of screen.
+    const totalHeight = viewHeight + rect.height;
+    const scrolled = viewHeight - rect.top;
 
-    let ratio = elapsed / totalDuration;
+    let ratio = scrolled / totalHeight;
     ratio = Math.max(0, Math.min(1, ratio)); // 0 to 1
 
     // Map scroll ratio to 1.5 full rotations (540 degrees of spin)
