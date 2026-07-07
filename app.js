@@ -627,57 +627,45 @@ function initHomeCollageScroll() {
     let ratio = scrolled / totalHeight;
     ratio = Math.max(0, Math.min(1, ratio)); // 0 to 1
 
-    // 3D Swarm parameters
+    // Even 3D Tornado parameters
     const totalCards = cards.length;
-    const verticalGap = 165; // Spacing gap between cards vertically
-    
-    // Global swirl rotation (2.5 full spins over scroll runway)
-    const globalRotation = ratio * 900;
+    const verticalGap = 160; // Spacing gap between cards vertically
 
     cards.forEach((card, i) => {
-      // Deterministic pseudo-random offsets for each card index (stateless & fluid)
-      const r1 = Math.sin(i * 12.9898) * 43758.5453;
-      const randAngle = r1 - Math.floor(r1);
-
-      const r2 = Math.sin(i * 78.233) * 43758.5453;
-      const randRadius = r2 - Math.floor(r2);
-
-      const r3 = Math.sin(i * 37.719) * 43758.5453;
-      const randTilt = r3 - Math.floor(r3);
-
-      // Unique staggered phase angle and orbit radius for each photo (chaotic layout)
-      const angle = globalRotation + (randAngle * 360);
-      const rad = angle * Math.PI / 180;
-      
-      const radiusX = (window.innerWidth * 0.16) + (randRadius - 0.5) * 100; // Spreads radius dynamically
-      const radiusZ = 240 + (randRadius - 0.5) * 100; // Spreads depth dynamically
-      const tilt = (randTilt - 0.5) * 36; // Chaotic tilts from -18deg to +18deg
-
-      // Calculate circular coords based on current angle
-      const x = Math.sin(rad) * radiusX;
-      const z = Math.cos(rad) * radiusZ;
-
       // Vertical position relative to screen center
       const baseY = (i - (totalCards / 2)) * verticalGap;
-      // Shift entire layout up as we scroll (starts offset +380px down on load so top images fade in)
+      // Shift spiral up based on progress, adding a +380px starting offset on load
+      // so even the first card starts cleanly below the viewport center (out-of-focus).
       const yOffset = baseY - (ratio * totalCards * verticalGap) + ((totalCards * verticalGap) / 2) + (1 - ratio) * 380;
 
-      // Focus spotlight trigger: cards fade and scale in as they cross center screen
-      const isFocused = Math.abs(yOffset) < 180;
-      const normalizedZ = z / 280; // -1 to 1 depth mapping
+      // Lock rotation angle directly to vertical offset distance.
+      // Every 380px of vertical travel spins the card 90 degrees (Math.PI/2 radians).
+      // This mathematically guarantees the card is at 0 degrees (front center) when yOffset = 0!
+      const rad = yOffset * (Math.PI / 380);
+
+      const radiusX = window.innerWidth * 0.18; // Horizontal orbit spread (18% of screen width)
+      const radiusZ = 280; // Depth perspective radius
+
+      // Trigonometric coordinates for a perfect even spiral
+      const x = Math.sin(rad) * radiusX;
+      const z = Math.cos(rad) * radiusZ;
+      const normalizedZ = z / radiusZ; // Range: -1 to 1
+
+      // Focus spotlight trigger: narrow range (90px) so only one card takes center stage at a time
+      const isFocused = Math.abs(yOffset) < 90;
 
       let scale, opacity;
       if (isFocused) {
-        // Focus weight factor (0 to 1) based on center screen proximity
-        const focusWeight = 1 - (Math.abs(yOffset) / 180);
-        scale = 0.95 + focusWeight * 0.1; // Scales up to 1.05x
-        opacity = 0.8 + focusWeight * 0.2; // Brightens up to 1.0
+        // Compute focus weight factor (0 to 1) based on center proximity
+        const focusWeight = 1 - (Math.abs(yOffset) / 90);
+        scale = 0.95 + focusWeight * 0.11; // Grows up to 1.06x
+        opacity = 0.75 + focusWeight * 0.25; // Brightens up to 1.0
         card.style.borderColor = `rgba(236, 233, 213, ${0.15 + focusWeight * 0.85})`;
-        card.style.boxShadow = `0 ${12 + focusWeight * 18}px ${30 + focusWeight * 20}px rgba(0, 0, 0, ${0.25 + focusWeight * 0.15})`;
+        card.style.boxShadow = `0 ${12 + focusWeight * 18}px ${30 + focusWeight * 20}px rgba(0, 0, 0, ${0.2 + focusWeight * 0.2})`;
       } else {
-        // Blur / fade out in background orbit (keeps cards visible in background heap)
-        scale = 0.72 + (normalizedZ + 1) * 0.1; // Range: 0.72x to 0.92x
-        opacity = 0.25 + (normalizedZ + 1) * 0.2; // Range: 0.25 to 0.65
+        // Blur / fade out in background orbit
+        scale = 0.7 + (normalizedZ + 1) * 0.125; // Range: 0.7x to 0.95x
+        opacity = 0.12 + (normalizedZ + 1) * 0.24; // Range: 0.12 to 0.6
         card.style.borderColor = 'rgba(236, 233, 213, 0.08)';
         card.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.2)';
       }
@@ -685,8 +673,8 @@ function initHomeCollageScroll() {
       // Compute zIndex dynamically to draw foreground elements over background
       const zIndex = Math.round((normalizedZ + 1) * 200);
 
-      // Apply 3D coordinate transform with organic Z-rotation
-      card.style.transform = `translate3d(${x}px, ${yOffset}px, ${z}px) scale(${scale}) rotate(${tilt}deg)`;
+      // Apply 3D coordinate transform
+      card.style.transform = `translate3d(${x}px, ${yOffset}px, ${z}px) scale(${scale})`;
       card.style.opacity = opacity;
       card.style.zIndex = zIndex;
     });
