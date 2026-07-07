@@ -989,11 +989,11 @@ a:hover {
 }
 
 .password-card {
-  max-width: 420px;
+  max-width: 480px; /* Expanded card size to accommodate larger logo */
   width: 100%;
   text-align: center;
   background: rgba(255, 255, 255, 0.03);
-  padding: 3rem 2rem;
+  padding: 3rem 2.5rem;
   border-radius: 8px;
   border: 1px solid rgba(236, 233, 213, 0.08);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
@@ -1001,7 +1001,7 @@ a:hover {
 }
 
 .password-logo {
-  height: 90px;
+  height: 200px; /* Made logo much larger */
   width: auto;
   margin-bottom: 1.5rem;
   opacity: 0.95;
@@ -1032,19 +1032,33 @@ a:hover {
 #password-input {
   width: 100%;
   padding: 0.9rem 1.2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(236, 233, 213, 0.15);
+  background: rgba(0, 0, 0, 0.2); /* Solid dark transparent backdrop */
+  border: 1px solid rgba(236, 233, 213, 0.45); /* Highly visible outline */
   border-radius: 4px;
-  color: var(--color-text);
+  color: #ffffff; /* High contrast pure white text */
   font-family: var(--font-body);
   font-size: 1rem;
   text-align: center;
   outline: none;
-  transition: border-color 0.25s ease;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+#password-input::placeholder {
+  color: rgba(236, 233, 213, 0.5); /* Clear placeholder visibility */
 }
 
 #password-input:focus {
   border-color: var(--color-accent);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Overriding autofill text color styling on browsers (Chrome/Safari) */
+#password-input:-webkit-autofill,
+#password-input:-webkit-autofill:hover,
+#password-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #3f4425 inset !important; /* Matches darker shade of olive */
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .password-btn {
