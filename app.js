@@ -465,6 +465,7 @@ function initFAQ() {
       if (!wasOpen) {
         item.classList.add('open');
         item.querySelector('.faq-toggle').textContent = '−';
+      }
     });
   });
 }
