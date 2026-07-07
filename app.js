@@ -18,19 +18,24 @@ const pages = {
       <p class="hero-location">City, State</p>
     </section>
 
-    <!-- Asymmetrical Editorial Collage -->
-    <div class="photo-collage">
-      <div class="collage-item item-1">
-        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80" alt="Elopement 1" />
-      </div>
-      <div class="collage-item item-2">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80" alt="Elopement 2" />
-      </div>
-      <div class="collage-item item-3">
-        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80" alt="Elopement 3" />
-      </div>
-      <div class="collage-item item-4">
-        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1000&q=80" alt="Elopement 4" />
+    <!-- Swirling 3D Tornado Collage -->
+    <div class="tornado-track">
+      <div class="tornado-viewport">
+        <div class="tornado-stage">
+          <div class="tornado-card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80" alt="Elopement 1" />
+          </div>
+          <div class="tornado-card">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80" alt="Elopement 2" />
+          </div>
+          <div class="tornado-card">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80" alt="Elopement 3" />
+          </div>
+          <div class="tornado-card">
+            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1000&q=80" alt="Elopement 4" />
+          </div>
+        </div>
+        <div class="tornado-hint">Scroll down to swirl photos &darr;</div>
       </div>
     </div>
   `,
@@ -544,55 +549,76 @@ function initVenueScrollStory() {
   handleScroll();
 }
 
-// Dynamic scroll-driven home collage organic rotation & floating stagger
+// Dynamic scroll-driven home collage organic rotation & floating stagger (Tornado Helix layout)
 function initHomeCollageScroll() {
-  const collage = document.querySelector('.photo-collage');
-  const items = document.querySelectorAll('.collage-item');
-  if (!collage || items.length === 0) return;
+  const track = document.querySelector('.tornado-track');
+  const cards = document.querySelectorAll('.tornado-card');
+  if (!track || cards.length === 0) return;
 
   const handleCollageScroll = () => {
     // Disable scrolling movement on mobile viewports
     if (window.innerWidth <= 900) {
-      items.forEach(item => {
-        item.style.transform = '';
+      cards.forEach(card => {
+        card.style.transform = '';
+        card.style.opacity = '';
+        card.style.zIndex = '';
+        card.style.borderColor = '';
       });
       return;
     }
 
+    const rect = track.getBoundingClientRect();
     const viewHeight = window.innerHeight;
-    const rect = collage.getBoundingClientRect();
 
-    // Trigger only when the collage enters the visible viewport
-    if (rect.top < viewHeight && rect.bottom > 0) {
-      const totalScrollHeight = viewHeight + rect.height;
-      const scrolled = viewHeight - rect.top;
-      const ratio = scrolled / totalScrollHeight; // Ratio from 0 to 1
+    const startY = 90; // Top navigation bar height offset
+    const totalDuration = rect.height - (viewHeight - startY);
+    const elapsed = -rect.top + startY;
 
-      // progress is centered at 0 when the collage is exactly halfway scrolled
-      const progress = ratio - 0.5;
+    let ratio = elapsed / totalDuration;
+    ratio = Math.max(0, Math.min(1, ratio)); // 0 to 1
 
-      // Item 1 (Large left): Tilt clockwise & float upward
-      const rot1 = progress * 6; // Max 3deg rotation
-      const transY1 = progress * -40; // Max 20px translation
-      items[0].style.transform = `rotate(${rot1}deg) translateY(${transY1}px)`;
+    // Map scroll ratio to 1.5 full rotations (540 degrees of spin)
+    const globalRotation = ratio * 540;
 
-      // Item 2 (Top right): Tilt counter-clockwise & float downward
-      const rot2 = progress * -5;
-      const transY2 = progress * 35;
-      items[1].style.transform = `rotate(${rot2}deg) translateY(${transY2}px)`;
+    // 3D Orbit size parameters
+    const radiusX = window.innerWidth * 0.18; // Horizontal orbit spread (18% of screen width)
+    const radiusZ = 280; // Depth perspective radius
+    
+    cards.forEach((card, i) => {
+      // base angle separation (90 degrees between each card in orbit)
+      const baseAngle = i * 90;
+      const currentAngle = globalRotation + baseAngle;
+      const rad = currentAngle * Math.PI / 180;
 
-      // Item 3 (Bottom center-right): Large clockwise tilt & float left-up
-      const rot3 = progress * 8;
-      const transY3 = progress * -50;
-      const transX3 = progress * -15;
-      items[2].style.transform = `rotate(${rot3}deg) translate3d(${transX3}px, ${transY3}px, 0)`;
+      // Calculate Trig circular coordinates
+      const x = Math.sin(rad) * radiusX;
+      const z = Math.cos(rad) * radiusZ;
+      
+      // Vertical helix layout (stagger cards to form vertical tornado shape)
+      const baseY = (i - 1.5) * 80;
+      const yOffset = baseY + (ratio * 60 - 30); // Dynamic vertical drift as it spins
 
-      // Item 4 (Far right): Tilt counter-clockwise & float right-down
-      const rot4 = progress * -6;
-      const transY4 = progress * 25;
-      const transX4 = progress * 15;
-      items[3].style.transform = `rotate(${rot4}deg) translate3d(${transX4}px, ${transY4}px, 0)`;
-    }
+      // Compute scale & opacity based on Z depth position
+      // z is positive when closer to screen (front stage)
+      const normalizedZ = z / radiusZ; // Range: -1 to 1
+      const scale = 0.75 + (normalizedZ + 1) * 0.15; // Range: 0.75 to 1.05
+      const opacity = 0.25 + (normalizedZ + 1) * 0.375; // Range: 0.25 to 1.0
+      
+      // Compute zIndex dynamically to draw foreground elements over background
+      const zIndex = Math.round((normalizedZ + 1) * 200);
+
+      // Apply 3D coordinate transform
+      card.style.transform = `translate3d(${x}px, ${yOffset}px, ${z}px) scale(${scale})`;
+      card.style.opacity = opacity;
+      card.style.zIndex = zIndex;
+
+      // Add a border highlight if the card is in foreground (center stage)
+      if (normalizedZ > 0.82) {
+        card.style.borderColor = 'var(--color-accent)';
+      } else {
+        card.style.borderColor = 'rgba(236, 233, 213, 0.08)';
+      }
+    });
   };
 
   // Bind the scroll event listener
